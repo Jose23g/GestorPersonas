@@ -31,6 +31,7 @@ namespace GestionDePersonas.BL
         {
             List<Persona> laListadePersonas;
             laListadePersonas = ElContextoDeBaseDeDatos.Persona.ToList();
+
             return laListadePersonas;
 
         }

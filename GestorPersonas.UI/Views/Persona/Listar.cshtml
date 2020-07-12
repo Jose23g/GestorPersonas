@@ -4,19 +4,20 @@
     ViewData["Title"] = "Listar";
 }
 
-<h1>Lista de personas</h1>
+<h1>Lista de Personas</h1>
 
 <p>
-    <a asp-action="Agregar">Agregar</a>
+    <a asp-action="Agregar" class="btn badge-success">Agregar</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr class="text-center">
             <th>
                 @Html.DisplayNameFor(model => model.Identificacion)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
+
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Primer_Apellido)
@@ -24,12 +25,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Segundo_Apellido)
             </th>
+            <th>
+                @Html.DisplayName("Foto")
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr class="text-center">
             <td>
                 @Html.DisplayFor(modelItem => item.Identificacion)
             </td>
@@ -42,7 +46,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Segundo_Apellido)
             </td>
-           
+            <td class="figure-img">
+               
+                <img src="@String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.Foto))" Width="150" Height="150" class="rounded-circle" />
+
+            </td>
+
         </tr>
 }
     </tbody>

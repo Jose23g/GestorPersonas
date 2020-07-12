@@ -18,6 +18,8 @@ namespace IIParcial_Lenguajes.UI.Controllers
         {
 
         }
+
+
         public async Task<IActionResult> Listar()
         {
             List<Persona> listadePersonas;
@@ -26,10 +28,14 @@ namespace IIParcial_Lenguajes.UI.Controllers
             {
                 var httpClient = new HttpClient();
 
-                var response = await httpClient.GetAsync("");
+                var response = await httpClient.GetAsync("https://localhost:44356/api/Persona");
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 listadePersonas = JsonConvert.DeserializeObject<List<Persona>>(apiResponse);
 
+                foreach (var item in listadePersonas)
+                {
+                  
+                }
             }
             catch (Exception ex)
             {
@@ -47,18 +53,25 @@ namespace IIParcial_Lenguajes.UI.Controllers
 
         [HttpPost]
        // [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Agregar(Persona persona)
+        public async Task<ActionResult> Agregar(Persona persona, List<IFormFile> Foto)
         {
-            var ms = new MemoryStream();
-            persona.Imagen.OpenReadStream().CopyTo(ms); 
-            Byte[] Valor = ms.ToArray();
+           
 
-            persona.Foto.SetValue(Valor.);
-
+            foreach (var item in Foto)
+            {
+                if (item.Length>0)
+                {
+                    using (var stream = new MemoryStream())
+                    {
+                        await item.CopyToAsync(stream);
+                        persona.Foto = stream.ToArray();
+                    }
+                }
+            }
+           
             try
             {
-                if (ModelState.IsValid)
-                {
+                
                     var httpClient = new HttpClient();
 
                     string json = JsonConvert.SerializeObject(persona);
@@ -69,14 +82,10 @@ namespace IIParcial_Lenguajes.UI.Controllers
 
                     byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                    await httpClient.PostAsync("", byteContent); 
+                    await httpClient.PostAsync("https://localhost:44356/api/Persona", byteContent); 
 
                     return RedirectToAction(nameof(Listar));
-                }
-                else
-                {
-                    return View();
-                }
+                
             }
             catch
             {

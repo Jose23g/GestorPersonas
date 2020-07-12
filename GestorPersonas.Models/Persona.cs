@@ -16,31 +16,33 @@ namespace GestionDePersonas.Models
 
         [DisplayName("Identificación")]
         [Required(ErrorMessage = "La identificación es requerida")]
-        [MaxLength(9, ErrorMessage = "El tamaño máximo de la identificación es de 9 caracteres")]
+        [RegularExpression("(^[0-9]+$)", ErrorMessage = "Solo se permiten números")]
+        [MaxLength(9 , ErrorMessage = "El tamaño máximo de la identificación es de 9 caracteres")]
+        [MinLength(9 , ErrorMessage = "El tamaño mínimo de la identificación es de 9 caracteres")]
         public string Identificacion { get; set; }
 
         [DisplayName("Nombre")]
-        [Required(ErrorMessage = "El Nombre es requerido")]
+        [Required(ErrorMessage = "El nombre es requerido")]
         [MaxLength(20, ErrorMessage = "El tamaño máximo del Nombre es de 20 caracteres")]
+        [RegularExpression("^[a-z-A-Z]+$", ErrorMessage = "Solo se permiten letras")]
         public string Nombre { get; set; }
 
         [DisplayName("Primer Apellido")]
-        [Required(ErrorMessage = "El Apellido es requerido")]
+        [RegularExpression("^[a-z-A-ZáéíóúÁÉÍÓÚ\\s]+$", ErrorMessage = "Solo se permiten letras")]
+        [Required(ErrorMessage = "El primer apellido es requerido")]
         public string Primer_Apellido { get; set; }
 
         [DisplayName("Segundo Apellido")]
-        [Required(ErrorMessage = "El Apellido es requerido")]
+        [RegularExpression("^[a-z-A-Z]+$", ErrorMessage = "Solo se permiten letras")]
+        [Required(ErrorMessage = "El segundo apellido es requerido")]
         public string Segundo_Apellido { get; set; }
 
-        [NotMapped]
+     
         [DisplayName("Foto")]
-        [Required(ErrorMessage = "La foto es requerida")]
-        public Byte?[] Foto { get; set; }
+        [Required(ErrorMessage = "La Foto es requerida")]
+        public Byte[] Foto { get; set; }
 
-        [NotMapped]
-        [DisplayName("Imagen")]
-        [Required(ErrorMessage = "La foto es requerida")]
-        public IFormFile Imagen { get; set; }
+
 
     }
 }

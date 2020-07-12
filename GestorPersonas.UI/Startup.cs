@@ -50,7 +50,7 @@ namespace GestorPersonas.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Persona}/{action=Agregar}/{id?}");
+                    pattern: "{controller=Persona}/{action=Listar}/{id?}");
             });
         }
     }
