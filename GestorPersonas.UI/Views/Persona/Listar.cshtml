@@ -1,0 +1,49 @@
+﻿@model IEnumerable<GestionDePersonas.Models.Persona>
+
+@{
+    ViewData["Title"] = "Listar";
+}
+
+<h1>Lista de personas</h1>
+
+<p>
+    <a asp-action="Agregar">Agregar</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Identificacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Primer_Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Segundo_Apellido)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Identificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Primer_Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Segundo_Apellido)
+            </td>
+           
+        </tr>
+}
+    </tbody>
+</table>

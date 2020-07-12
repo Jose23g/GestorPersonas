@@ -21,6 +21,12 @@ namespace GestionDePersonas.BL
             ElContextoDeBaseDeDatos.SaveChanges();
         }
 
+        public Persona DetallePersona(int id)
+        {
+            Persona persona = ElContextoDeBaseDeDatos.Persona.Find(id);
+            return persona;
+        }
+
         public List<Persona> ListaDePersonas()
         {
             List<Persona> laListadePersonas;

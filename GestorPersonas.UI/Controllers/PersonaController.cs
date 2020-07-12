@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using GestionDePersonas.Model;
-
+using GestionDePersonas.Models;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace IIParcial_Lenguajes.UI.Controllers
 {
@@ -38,45 +39,74 @@ namespace IIParcial_Lenguajes.UI.Controllers
             return View(listadePersonas);
         }
 
-    public ActionResult Agregar()
-    {
-
-        return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Agregar(Persona persona)
-    {
-        try
+        public ActionResult Agregar()
         {
-            if (ModelState.IsValid)
+
+          return View();
+        }
+
+        [HttpPost]
+       // [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Agregar(Persona persona)
+        {
+            var ms = new MemoryStream();
+            persona.Imagen.OpenReadStream().CopyTo(ms); 
+            Byte[] Valor = ms.ToArray();
+
+            persona.Foto.SetValue(Valor.);
+
+            try
             {
-                var httpClient = new HttpClient();
+                if (ModelState.IsValid)
+                {
+                    var httpClient = new HttpClient();
 
-                string json = JsonConvert.SerializeObject(persona);
+                    string json = JsonConvert.SerializeObject(persona);
 
-                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
+                    var buffer = System.Text.Encoding.UTF8.GetBytes(json);
 
-                var byteContent = new ByteArrayContent(buffer);
+                    var byteContent = new ByteArrayContent(buffer);
 
-                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                await httpClient.PostAsync("", byteContent);
+                    await httpClient.PostAsync("", byteContent); 
 
-                return RedirectToAction(nameof(Listar));
+                    return RedirectToAction(nameof(Listar));
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch
             {
                 return View();
             }
+
+
         }
-        catch
+
+        public async Task<IActionResult> Detalles(int id)
         {
-            return View();
+            Persona persona;
+
+            try
+            {
+
+                var httpClient = new HttpClient();
+                var response = await httpClient.GetAsync("" + id);
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                persona = JsonConvert.DeserializeObject<Persona>(apiResponse);
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return View(persona);
         }
+
     }
-
-
-}
 }

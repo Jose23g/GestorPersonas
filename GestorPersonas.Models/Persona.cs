@@ -1,13 +1,18 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GestionDePersonas.Models
 {
     public class Persona
     {
+
+        public int Id { get; set; }
 
         [DisplayName("Identificación")]
         [Required(ErrorMessage = "La identificación es requerida")]
@@ -21,10 +26,21 @@ namespace GestionDePersonas.Models
 
         [DisplayName("Primer Apellido")]
         [Required(ErrorMessage = "El Apellido es requerido")]
-        public string PrimerApellido { get; set; }
+        public string Primer_Apellido { get; set; }
 
         [DisplayName("Segundo Apellido")]
         [Required(ErrorMessage = "El Apellido es requerido")]
-        public string SegundoApellido { get; set; }
+        public string Segundo_Apellido { get; set; }
+
+        [NotMapped]
+        [DisplayName("Foto")]
+        [Required(ErrorMessage = "La foto es requerida")]
+        public Byte?[] Foto { get; set; }
+
+        [NotMapped]
+        [DisplayName("Imagen")]
+        [Required(ErrorMessage = "La foto es requerida")]
+        public IFormFile Imagen { get; set; }
+
     }
 }

@@ -9,5 +9,6 @@ namespace GestionDePersonas.BL
     {
         List<Persona> ListaDePersonas();
         void Agregar(Persona personas);
+        Persona DetallePersona(int id);
     }
 }
