@@ -24,16 +24,16 @@ namespace GestionDePersonas.Models
         [DisplayName("Nombre")]
         [Required(ErrorMessage = "El nombre es requerido")]
         [MaxLength(20, ErrorMessage = "El tamaño máximo del Nombre es de 20 caracteres")]
-        [RegularExpression("^[a-z-A-Z]+$", ErrorMessage = "Solo se permiten letras")]
+        [RegularExpression("^([a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$", ErrorMessage = "Solo se permiten letras")]
         public string Nombre { get; set; }
 
         [DisplayName("Primer Apellido")]
-        [RegularExpression("^[a-z-A-ZáéíóúÁÉÍÓÚ\\s]+$", ErrorMessage = "Solo se permiten letras")]
+        [RegularExpression("^([a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$", ErrorMessage = "Solo se permiten letras")]
         [Required(ErrorMessage = "El primer apellido es requerido")]
         public string Primer_Apellido { get; set; }
 
         [DisplayName("Segundo Apellido")]
-        [RegularExpression("^[a-z-A-Z]+$", ErrorMessage = "Solo se permiten letras")]
+        [RegularExpression("^([a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\\s*)+([a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$", ErrorMessage = "Solo se permiten letras")]
         [Required(ErrorMessage = "El segundo apellido es requerido")]
         public string Segundo_Apellido { get; set; }
 

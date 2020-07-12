@@ -28,7 +28,7 @@ namespace IIParcial_Lenguajes.UI.Controllers
             {
                 var httpClient = new HttpClient();
 
-                var response = await httpClient.GetAsync("https://localhost:44356/api/Persona");
+                var response = await httpClient.GetAsync("https://gestorpersonassi20200712171624.azurewebsites.net/api/Persona");
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 listadePersonas = JsonConvert.DeserializeObject<List<Persona>>(apiResponse);
 
@@ -82,7 +82,7 @@ namespace IIParcial_Lenguajes.UI.Controllers
 
                     byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                    await httpClient.PostAsync("https://localhost:44356/api/Persona", byteContent); 
+                    await httpClient.PostAsync("https://gestorpersonassi20200712171624.azurewebsites.net/api/Persona", byteContent); 
 
                     return RedirectToAction(nameof(Listar));
                 
